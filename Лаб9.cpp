@@ -1,4 +1,4 @@
-﻿#pragma warning (disable : 4996)
+#pragma warning (disable : 4996)
 #include <iostream>
 #include <Windows.h>
 #include <io.h>
@@ -21,16 +21,19 @@ void Create()
 	fclose(pfile);
 }
 //Копирование файла F1 в F2
-void CopyFile1()
+void CopyFile1(int N, int K)
 {
 	FILE* pfile = fopen("F1.txt", "r");
 	FILE* pfileF2 = fopen("F2.txt", "w+");
 	char buffer[255];
+	int j = 0;
 	while (fgets(buffer, 255, pfile))
 	{
-		char k = *buffer;
-		if (k >= 'K' && k <= 'N') //Проверка есть ли символ в диапазоне
+		if (j >= N && j <= K)
+		{
 			fputs(buffer, pfileF2);
+		}
+		j++;
 	}
 	fclose(pfile);
 	fclose(pfileF2);
@@ -48,13 +51,13 @@ void PrintSources()
 int isConsonants(char* buffer)
 {
 	//Алфавитный массив с согласными буквами
-	const char* conslist = "qwrtpsdfghjklzxcvbnmQWRTPSDFGHJKLZXCVBNM";
+	const char* conslist = "бвгджзйклмнпрстфхцчшщБВГДЖЗЙКЛМНПРСТФХЦЧШЩ";
 	int result = 0;
 	while (*buffer != '\n')
 	{
 		//Цикл по алфавиту с согласными буквами
-		for (size_t i = 0; i < 42; i++)
-			if (conslist[i] == *buffer)
+		for (size_t i = 0; i < 44; i++)
+		if (conslist[i] == *buffer)
 			{
 				result++;
 				break;
@@ -74,38 +77,26 @@ void CalculateConsonants()
 		result += isConsonants(buffer);
 	}
 	fclose(pfile);
-	cout << "количество согласных букв в файле F2: " << result << endl;
+	cout << "Количество согласных букв в файле F2: " << result << endl;
 }
 
 int main()
 {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	int mode;
-	do
-	{
-		cout << "\n1 - Создать файл\n2 - Скопировать из файла F1 в файл F2 строки, начиная с N до K\n3 - Распечатать файл F2.\n4 - Подсчитать количество согласных букв в файле F2.\n0 - Выйти из программы";
-		cout << "\nЧто сделать с файлом:";
-		cin >> mode;
-		switch (mode)
-		{
-		case 1:
-			Create();
-			break;
-		case 2:
-			CopyFile1();
-			break;
-		case 3:
-			PrintSources();
-			break;
-		case 4:
-			CalculateConsonants();
-			break;
-		case 0:
-			break;
-		default:
-			cout << "Я вас не понимаю\n";
-		}
-	} while (mode != 0);
+	int N, K;
+	cout << "Введите строку:" << endl;
+	Create();
+	cout << endl;
+	cout << "Введите с какой строки скопировать:" << endl;
+	cin >> N;
+	cout << "Введите до какой строки скопировать:" << endl;
+	cin >> K;
+	cout << endl;
+	CopyFile1(N, K);
+	cout << "Второй файл:" << endl;
+	PrintSources();
+	cout << endl;
+	CalculateConsonants();
 	return 0;
 }
