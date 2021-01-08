@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <math.h>
 
 using namespace std;
@@ -35,7 +35,7 @@ int main()
 			if (aarray[i][j] < min_value)
 			{
 				min_value = aarray[i][j];
-				min_index = j;							//запоминаем его индекс
+				min_index = j;		 //запоминаем его индекс
 			}
 		int max_value = aarray[0][min_index];
 		int max_index = 0;
@@ -50,9 +50,10 @@ int main()
 					max_index = -1;
 			}
 		}
-		if (max_index == i)//если индекс максимального элемента совпадает с текущем индексом
-			cout << " Элемент  = " << min_value << " является седловой точкой ";
-		cout << endl;
-	}
-	return 0;
+	cout << "Элемент " << min_value;
+	if (max_index == i)//если индекс максимального элемента совпадает с текущем индексом
+		cout << " является седловой точкой";
+	cout << '\n';
+}
+return 0;
 }
