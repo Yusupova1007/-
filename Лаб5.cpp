@@ -50,10 +50,36 @@ int main()
 					max_index = -1;
 			}
 		}
-	cout << "Элемент " << min_value;
-	if (max_index == i)//если индекс максимального элемента совпадает с текущем индексом
-		cout << " является седловой точкой";
-	cout << '\n';
-}
-return 0;
+		if (max_index == i)//если индекс максимального элемента совпадает с текущем индексом
+			cout << " Элемент  = " << min_value << " является седловой точкой ";
+	}
+	for (int i = 0; i < size_array; i++)
+	{
+		int min_value = aarray[i][0];
+		int min_index = 0;
+
+		for (int j = 1; j < size_array; ++j)	//ищем максимальный элемент в строке
+			if (aarray[i][j] > min_value)
+			{
+				min_value = aarray[i][j];
+				min_index = j;		 //запоминаем его индекс
+			}
+		int max_value = aarray[0][min_index];
+		int max_index = 0;
+		for (int k = 1; k < size_array; k++)	//ищем минимальный элемент в столбце
+		{
+			if (aarray[k][min_index] < max_value)
+			{
+				max_value = aarray[k][min_index];
+				if (k == i)
+					max_index = k;
+				else
+					max_index = -1;
+			}
+		}
+		if (max_index == i)
+			cout << " Элемент  = " << min_value << " является седловой точкой ";
+		cout << endl;
+	}
+	return 0;
 }
